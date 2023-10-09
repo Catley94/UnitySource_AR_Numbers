@@ -9,6 +9,8 @@ public class OptionsManager : MonoBehaviour
     
     //Serialised for debugging
     [SerializeField] private Button[] buttons;
+    
+    private GameObject gameManager;
 
     #region Public
 
@@ -41,7 +43,7 @@ public class OptionsManager : MonoBehaviour
 
         private void SubToEvents()
         {
-            GameObject.Find("GameManager").GetComponent<AvailableNumbers>().OnNewActiveNumber.AddListener(OnNewNumber);
+            gameManager.GetComponent<AvailableNumbers>().OnNewActiveNumber.AddListener(OnNewNumber);
         }
 
         private int GenerateRandomAlternativeNumber()
@@ -51,71 +53,61 @@ public class OptionsManager : MonoBehaviour
 
         private void OnNewNumber(int activeNumber)
         {
-            string activeNumberToString = IntToString(activeNumber);
-            string alternativeOption1 = IntToString(GenerateRandomAlternativeNumber());
-            string alternativeOption2 = IntToString(GenerateRandomAlternativeNumber());
-            string alternativeOption3 = IntToString(GenerateRandomAlternativeNumber());
             
-            List<int> buttonIndexesUpdated = new List<int>();
-            
-            while(alternativeOption1 == activeNumberToString)
+            for (int i = 0; i < buttons.Length; i++)
             {
-                alternativeOption1 = IntToString(GenerateRandomAlternativeNumber());
-            }
-            
-            while(alternativeOption2 == activeNumberToString)
-            {
-                alternativeOption2 = IntToString(GenerateRandomAlternativeNumber());
-            }
-            
-            while(alternativeOption3 == activeNumberToString)
-            {
-                alternativeOption3 = IntToString(GenerateRandomAlternativeNumber());
+                SetupButton(i, activeNumber);
             }
 
-            SetupFirstButton(alternativeOption1);
-
-            SetupSecondButton(alternativeOption2);
-
-            SetupThirdButton(alternativeOption3);
-
-            SetupCorrectOptionButton(activeNumberToString);
+            SetupCorrectOptionButton(activeNumber);
         }
 
-        private void SetupCorrectOptionButton(string activeNumberToString)
+        private void SetupCorrectOptionButton(int activeNumber)
         {
             int randomIndex = Random.Range(0, buttons.Length);
-            transform.GetChild(randomIndex).GetComponentInChildren<TMP_Text>().text = activeNumberToString;
-            transform.GetChild(randomIndex).GetComponent<Button>().onClick.RemoveAllListeners();
-            transform.GetChild(randomIndex).GetComponent<Button>().onClick.AddListener(GameObject.Find("GameManager")
+            // transform.GetChild(randomIndex).GetComponentInChildren<TMP_Text>().text = IntToNameString(activeNumber);
+            SetButtonText(randomIndex, IntToNameString(activeNumber));
+            ResetButtonListeners(randomIndex);
+            AddActiveNumberCompleteListener(randomIndex);
+        }
+
+        private void AddActiveNumberCompleteListener(int randomIndex)
+        {
+            transform.GetChild(randomIndex).GetComponent<Button>().onClick.AddListener(gameManager
                 .GetComponent<AnswerSelection>().ActiveNumberCompleted);
         }
 
-        private void SetupThirdButton(string alternativeOption3)
+        private void SetupButton(int childIndex, int activeNumber)
         {
-            transform.GetChild(2).GetComponentInChildren<TMP_Text>().text = alternativeOption3;
-            transform.GetChild(2).GetComponent<Button>().onClick.RemoveAllListeners();
-            transform.GetChild(2).GetComponent<Button>().onClick.AddListener(GameObject.Find("GameManager")
+            string numberString = IntToNameString(GenerateRandomAlternativeNumber());
+            
+            while(numberString == IntToNameString(activeNumber))
+            {
+                numberString = IntToNameString(GenerateRandomAlternativeNumber());
+            }
+            
+            SetButtonText(childIndex, numberString);
+            ResetButtonListeners(childIndex);
+            AddActiveNumberIncompleteListener(childIndex);
+        }
+
+        private void AddActiveNumberIncompleteListener(int childIndex)
+        {
+            transform.GetChild(childIndex).GetComponent<Button>().onClick.AddListener(gameManager
                 .GetComponent<AnswerSelection>().ActiveNumberIncomplete);
         }
 
-        private void SetupSecondButton(string alternativeOption2)
+        private void ResetButtonListeners(int childIndex)
         {
-            transform.GetChild(1).GetComponentInChildren<TMP_Text>().text = alternativeOption2;
-            transform.GetChild(1).GetComponent<Button>().onClick.RemoveAllListeners();
-            transform.GetChild(1).GetComponent<Button>().onClick.AddListener(GameObject.Find("GameManager")
-                .GetComponent<AnswerSelection>().ActiveNumberIncomplete);
+            transform.GetChild(childIndex).GetComponent<Button>().onClick.RemoveAllListeners();
         }
 
-        private void SetupFirstButton(string alternativeOption1)
+        private void SetButtonText(int childIndex, string numberString)
         {
-            transform.GetChild(0).GetComponentInChildren<TMP_Text>().text = alternativeOption1;
-            transform.GetChild(0).GetComponent<Button>().onClick.RemoveAllListeners();
-            transform.GetChild(0).GetComponent<Button>().onClick.AddListener(GameObject.Find("GameManager")
-                .GetComponent<AnswerSelection>().ActiveNumberIncomplete);
+            transform.GetChild(childIndex).GetComponentInChildren<TMP_Text>().text = numberString;
         }
 
-        private string IntToString(int number)
+        private string IntToNameString(int number)
         {
             string numberString = "";
             
@@ -161,6 +153,7 @@ public class OptionsManager : MonoBehaviour
         private void SetupReferences()
         {
             buttons = GetComponentsInChildren<Button>();
+            gameManager = GameObject.Find("GameManager");
         }
 
     #endregion
