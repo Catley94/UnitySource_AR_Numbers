@@ -79,7 +79,7 @@ public class AvailableNumbers : MonoBehaviour
 
         private void IncorrectSelection()
         {
-            GetComponent<AvailableNumbers>().SelectNextNumber();
+            SelectNextNumber();
         }
 
         private int GetNewNumber()
