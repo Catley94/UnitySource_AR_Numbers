@@ -5,6 +5,9 @@ using UnityEngine;
 public class VoiceOverMessage : MonoBehaviour
 {
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip audioClip;
+
     #region Public
 
     public void PlayPromptToSelectNumber()
@@ -22,7 +25,7 @@ public class VoiceOverMessage : MonoBehaviour
     #region Private
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             SubToEvents();
         }
@@ -35,6 +38,7 @@ public class VoiceOverMessage : MonoBehaviour
         private void OnNewNumber(int activeNumber)
         {
             //TODO: Play voice over "Say the number out loud"
+            audioSource.PlayOneShot(audioClip);
         }
         
 

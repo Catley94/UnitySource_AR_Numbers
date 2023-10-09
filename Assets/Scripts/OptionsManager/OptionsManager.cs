@@ -48,7 +48,7 @@ public class OptionsManager : MonoBehaviour
 
         private int GenerateRandomAlternativeNumber()
         {
-            return Random.Range(0, 11);
+            return Random.Range(1, 11);
         }
 
         private void OnNewNumber(int activeNumber)
@@ -144,6 +144,7 @@ public class OptionsManager : MonoBehaviour
                     break;
                 default:
                     numberString = "";
+                    Debug.LogWarning($"Number not found {number}");
                     break;
             }
             return numberString;

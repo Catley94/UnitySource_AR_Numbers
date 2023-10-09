@@ -10,9 +10,11 @@ public class AnswerSelection : MonoBehaviour
     [SerializeField] private IncorrectSelectionMessage incorrectSelectionMessage;
     [SerializeField] private MainNumber mainNumber;
     [SerializeField] private OptionsManager optionsManager;
+    [SerializeField] private float buttonsDisabledForXSeconds;
     
     [HideInInspector] public UnityEvent OnActiveNumberComplete = new UnityEvent();
     [HideInInspector] public UnityEvent OnActiveNumberIncomplete = new UnityEvent();
+    
 
     #region Public
 
@@ -36,7 +38,7 @@ public class AnswerSelection : MonoBehaviour
         optionsManager.DisableAllButtons();
         mainNumber.Hide();
         correctSelectionMessage.Show();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(buttonsDisabledForXSeconds);
         correctSelectionMessage.Hide();
         mainNumber.Show();
         OnActiveNumberComplete?.Invoke();
@@ -48,7 +50,7 @@ public class AnswerSelection : MonoBehaviour
         optionsManager.DisableAllButtons();
         mainNumber.Hide();
         incorrectSelectionMessage.Show();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(buttonsDisabledForXSeconds);
         incorrectSelectionMessage.Hide();
         mainNumber.Show();
         OnActiveNumberIncomplete?.Invoke();
