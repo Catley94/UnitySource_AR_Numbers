@@ -79,7 +79,7 @@ public class AvailableNumbers : MonoBehaviour
 
         private void IncorrectSelection()
         {
-            SelectNextNumber();
+            
         }
 
         private int GetNewNumber()
