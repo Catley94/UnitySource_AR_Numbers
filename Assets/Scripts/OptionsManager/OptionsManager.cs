@@ -14,21 +14,21 @@ public class OptionsManager : MonoBehaviour
 
     #region Public
 
-    public void DisableAllButtons()
-    {
-        foreach (Button _button in buttons)
+        public void DisableAllButtons()
         {
-            _button.interactable = false;
+            foreach (Button _button in buttons)
+            {
+                _button.interactable = false;
+            }
         }
-    }
-    
-    public void EnableAllButtons()
-    {
-        foreach (Button _button in buttons)
+        
+        public void EnableAllButtons()
         {
-            _button.interactable = true;
+            foreach (Button _button in buttons)
+            {
+                _button.interactable = true;
+            }
         }
-    }
 
     #endregion
     
@@ -65,7 +65,6 @@ public class OptionsManager : MonoBehaviour
         private void SetupCorrectOptionButton(int activeNumber)
         {
             int randomIndex = Random.Range(0, buttons.Length);
-            // transform.GetChild(randomIndex).GetComponentInChildren<TMP_Text>().text = IntToNameString(activeNumber);
             SetButtonText(randomIndex, IntToNameString(activeNumber));
             ResetButtonListeners(randomIndex);
             AddActiveNumberCompleteListener(randomIndex);
