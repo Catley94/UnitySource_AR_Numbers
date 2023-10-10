@@ -54,7 +54,7 @@ public class TrackProgress : MonoBehaviour
 
         private void CorrectSelection()
         {
-            //Statically tracks the percent by adding 10% each time, not ideal, need to make this dynamic.
+            //TODO: Make Dyanimc - currnetly statically tracks the percent by adding 10% each time, not ideal, need to make this dynamic.
             pickedIncorrectly = false;
             percentCorrect += 10;
         }
