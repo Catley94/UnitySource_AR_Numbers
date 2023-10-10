@@ -9,7 +9,7 @@ public class AvailableNumbers : MonoBehaviour
     
     public List<int> availableNumbers = new List<int>(){1,2,3,4,5,6,7,8,9,10};
     //SerializeField for Debugging Purposes
-    [SerializeField] int activeNumber = -1;
+    private int _activeNumber = -1;
     
     [SerializeField] private TMP_Text activeNumberText;
     
@@ -19,7 +19,7 @@ public class AvailableNumbers : MonoBehaviour
 
         public int GetActiveNumberOnScreen()
         {
-            return activeNumber;
+            return _activeNumber;
         }
 
         public List<int> GetRemainingNumbers()
@@ -27,31 +27,7 @@ public class AvailableNumbers : MonoBehaviour
             return availableNumbers;
         }
         
-        public void SelectNextNumber()
-        {
-            if (availableNumbers.Count == 0)
-            {
-                /*
-                 * If all numbers have been shown and completed.
-                 * Show congratulations text and hide the active number text.
-                 */
-                activeNumberText.enabled = false;
-                GetComponent<GameOver>().Show();
-            }
-            else
-            {
-                /*
-                 * Select random number from availableNumbers list.
-                 * Set activeNumber to the new random number.
-                 * Update number on screen in AR space.
-                 * Invoke event
-                 */
-                int newRandomNumber = GetNewNumber();
-                activeNumber = newRandomNumber;
-                activeNumberText.text = activeNumber.ToString();
-                OnNewActiveNumber?.Invoke(activeNumber);
-            }
-        }
+        
 
     #endregion
 
@@ -72,7 +48,7 @@ public class AvailableNumbers : MonoBehaviour
 
         private void CorrectSelection()
         {
-            availableNumbers.Remove(activeNumber);
+            availableNumbers.Remove(_activeNumber);
             SelectNextNumber();
         }
 
@@ -92,10 +68,30 @@ public class AvailableNumbers : MonoBehaviour
             return -1;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void SelectNextNumber()
         {
-                
+            if (availableNumbers.Count == 0)
+            {
+                /*
+                 * If all numbers have been shown and completed.
+                 * Show congratulations text and hide the active number text.
+                 */
+                activeNumberText.enabled = false;
+                GetComponent<GameOver>().Show();
+            }
+            else
+            {
+                /*
+                 * Select random number from availableNumbers list.
+                 * Set activeNumber to the new random number.
+                 * Update number on screen in AR space.
+                 * Invoke event
+                 */
+                int newRandomNumber = GetNewNumber();
+                _activeNumber = newRandomNumber;
+                activeNumberText.text = _activeNumber.ToString();
+                OnNewActiveNumber?.Invoke(_activeNumber);
+            }
         }
     
     #endregion

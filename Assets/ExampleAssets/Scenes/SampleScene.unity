@@ -3210,7 +3210,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableNumbers: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
-  activeNumber: -1
   activeNumberText: {fileID: 2005381293}
   OnNewActiveNumber:
     m_PersistentCalls:
@@ -3246,7 +3245,7 @@ MonoBehaviour:
   incorrectSelectionMessage: {fileID: 692625962}
   mainNumber: {fileID: 2005381296}
   optionsManager: {fileID: 1266066965}
-  buttonsDisabledForXSeconds: 3
+  buttonsDisabledForXSeconds: 2
   OnActiveNumberComplete:
     m_PersistentCalls:
       m_Calls: []
