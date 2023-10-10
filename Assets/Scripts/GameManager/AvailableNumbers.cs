@@ -12,7 +12,6 @@ public class AvailableNumbers : MonoBehaviour
     [SerializeField] int activeNumber = -1;
     
     [SerializeField] private TMP_Text activeNumberText;
-    [SerializeField] private TMP_Text endGameCongratulationsText;
     
     public UnityEvent<int> OnNewActiveNumber = new UnityEvent<int>();
     
@@ -37,7 +36,7 @@ public class AvailableNumbers : MonoBehaviour
                  * Show congratulations text and hide the active number text.
                  */
                 activeNumberText.enabled = false;
-                endGameCongratulationsText.enabled = true;
+                GetComponent<GameOver>().Show();
             }
             else
             {

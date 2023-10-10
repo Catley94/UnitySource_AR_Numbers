@@ -24,9 +24,16 @@ public class OptionsManager : MonoBehaviour
         
         public void EnableAllButtons()
         {
-            foreach (Button _button in buttons)
+            if (!gameManager.GetComponent<GameOver>().IsGameOver())
             {
-                _button.interactable = true;
+                foreach (Button _button in buttons)
+                {
+                    _button.interactable = true;
+                }
+            }
+            else
+            {
+                ClearAllButtonText();
             }
         }
 
@@ -44,6 +51,15 @@ public class OptionsManager : MonoBehaviour
         private void SubToEvents()
         {
             gameManager.GetComponent<AvailableNumbers>().OnNewActiveNumber.AddListener(OnNewNumber);
+            gameManager.GetComponent<GameOver>().OnGameOver.AddListener(DisableAllButtons);
+        }
+
+        private void ClearAllButtonText()
+        {
+            foreach (Button _button in buttons)
+            {
+                _button.GetComponentInChildren<TMP_Text>().text = "";
+            }
         }
 
         private int GenerateRandomAlternativeNumber()

@@ -15,7 +15,6 @@ public class AnswerSelection : MonoBehaviour
     [HideInInspector] public UnityEvent OnActiveNumberComplete = new UnityEvent();
     [HideInInspector] public UnityEvent OnActiveNumberIncomplete = new UnityEvent();
     
-
     #region Public
 
         
