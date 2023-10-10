@@ -8,7 +8,6 @@ public class AvailableNumbers : MonoBehaviour
 {
     
     public List<int> availableNumbers = new List<int>(){1,2,3,4,5,6,7,8,9,10};
-    //SerializeField for Debugging Purposes
     private int _activeNumber = -1;
     
     [SerializeField] private TMP_Text activeNumberText;

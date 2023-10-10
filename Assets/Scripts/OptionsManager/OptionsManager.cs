@@ -7,8 +7,7 @@ using UnityEngine.UI;
 public class OptionsManager : MonoBehaviour
 {
     
-    //Serialised for debugging
-    [SerializeField] private Button[] buttons;
+    private Button[] buttons;
     
     private GameObject gameManager;
 

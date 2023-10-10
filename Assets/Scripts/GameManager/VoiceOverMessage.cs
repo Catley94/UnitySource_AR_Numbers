@@ -37,7 +37,6 @@ public class VoiceOverMessage : MonoBehaviour
 
         private void OnNewNumber(int activeNumber)
         {
-            //TODO: Play voice over "Say the number out loud"
             audioSource.PlayOneShot(audioClip);
         }
         

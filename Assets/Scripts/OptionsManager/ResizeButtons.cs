@@ -5,12 +5,6 @@ using UnityEngine;
 
 public class ResizeButtons : MonoBehaviour
 {
-    #region Public
-    
-        
-    
-    #endregion
-    
     #region Private
 
         private void Start()
