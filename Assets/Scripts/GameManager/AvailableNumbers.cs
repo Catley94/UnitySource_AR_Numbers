@@ -13,7 +13,7 @@ public class AvailableNumbers : MonoBehaviour
     
     [SerializeField] private TMP_Text activeNumberText;
     
-    public UnityEvent<int> OnNewActiveNumber = new UnityEvent<int>();
+    [HideInInspector] public UnityEvent<int> OnNewActiveNumber = new UnityEvent<int>();
     
     #region Public
 
